@@ -1,0 +1,55 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+@import "bootstrap";
+@import "bootstrap-glyphicons";
+
+@media screen and (max-width: 992px) {
+	.logo {
+	  display: inline;
+	  vertical-align: super;
+	}
+}
+
+.container-fluid {
+	padding-right: 30px !important;
+	padding-left: 30px !important;
+}
+
+.navbar {
+	padding: 0.5rem 2rem !important;
+}
+
+ul {
+	padding-left: 0px !important;
+}
+
+.pointer {
+	cursor: pointer;
+}
+
+.modal-lg input {
+	width: 100%;
+}
+
+.header_left {
+	display: inherit;
+}
+
+.logo img {
+	border-radius: 50%;
+	margin-right: 15px;
+}

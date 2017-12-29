@@ -1,0 +1,93 @@
+// Place all the styles related to the Posts controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+@media screen and (max-width: 992px) {
+	.post_light_gallery img {
+		width: 100% !important;
+	}
+	.code {
+		width: 100% !important;
+	}
+}
+
+.post_card {
+	display: table;
+	margin-bottom: 25px;
+	width: 100%;
+  padding: 10px 20px 10px 0px;
+  border-radius: 2px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+}
+
+.table_cell {
+	display: table-cell;
+	padding-right: 20px;
+	text-align: center;
+  width: 60px;
+  color: grey;
+}
+
+.rating_up, .rating_down {
+	cursor: pointer;
+}
+
+.post_info {
+	font-size: 12px;
+}
+
+.code {
+	width: 540px;
+}
+
+.post_light_gallery li {
+	list-style-type: none;
+}
+
+.post_light_gallery img {
+	width: 500px;
+}
+
+.add_comment_to_post {
+	margin: 20px 0px;
+}
+.add_comment_to_post textarea, .comment textarea {
+	width: 100%;
+}
+
+.comment {
+	margin-bottom: 20px;
+}
+.comments_post .comment_info {
+	font-size: 12px;
+}
+
+.comment_answer {
+  margin-left: 30px;
+  margin-top: 10px;
+}
+
+.comment_answer_button {
+	color: #449d44;
+}
+
+.you_answer_hide_show {
+	display: none;
+}
+
+.hide_show {
+	display: block;
+}
+
+.news_parser a:hover {
+	text-decoration: none;
+	color: #0275d8;
+}
+
+.news_parser:hover .add_news_parser {
+	display: inline;
+}
+.add_news_parser {
+	cursor: pointer;
+	display: none;
+}
