@@ -19,24 +19,12 @@
 
   <body>
     <!-- header -->
-    <%= render 'layouts/header' %>
-  	<div class="container-fluid">
+    <header>
+      <%= render 'layouts/header' %>  
+    </header>
+  	<div class="container content">
       <div class="row">
-        <div class="col-md-9">
-          <%= yield %>
-        </div>
-        <div class="col-md-3">
-          <h5><p>Правила</p></h5>
-          <p>1. Будь-яке посилання або стаття на футбольну тему має право бути доданими.</p>
-          <p>2. Це відкрите ком'юніті - будь-який бажаючий може зареєструватися і додати новину.</p>
-          <p>3. Одна новина - одне посилання.</p>
-          <p>4. Пити пиво в п'ятницю можна з самого ранку.</p>
-          <% if current_user %>
-            <%= link_to 'Добавити новину', new_post_path, class: 'btn btn-primary' %>
-          <% else %>
-            <div class="btn btn-primary pointer" data-toggle="modal" data-target=".bd-example-modal-lg">Добавити новину</div>
-          <% end %>
-        </div>
+        <%= yield %>
       </div>
     </div>
     <%= render 'layouts/footer' %>

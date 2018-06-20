@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170814094907) do
+ActiveRecord::Schema.define(version: 20180101141035) do
+
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.string "cover"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "color"
+    t.string "letter"
+  end
 
   create_table "comments", force: :cascade do |t|
     t.string "message"
@@ -32,6 +42,7 @@ ActiveRecord::Schema.define(version: 20170814094907) do
     t.integer "rating", default: 0
     t.string "domain", default: "messiwho"
     t.string "photos"
+    t.integer "category_id"
   end
 
   create_table "users", force: :cascade do |t|

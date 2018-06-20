@@ -7,17 +7,21 @@ class PostsController < ApplicationController
   def index
     @posts = Post.where(created_at:  (Time.now - 24.hours)..Time.now)
     @comments = Comment.joins(:posts)
+    @categories = Category.all
   end
 
   # GET /posts/1
   # GET /posts/1.json
   def show
+    @posts = Post.where(created_at:  (Time.now - 24.hours)..Time.now)
     @comments = Comment.where(post_id: @post.id)
+    @categories = Category.all
   end
 
   # GET /posts/new
   def new
     @post = Post.new
+    @categories = Category.all
   end
 
   # GET /posts/1/edit
@@ -27,8 +31,8 @@ class PostsController < ApplicationController
   # POST /posts
   # POST /posts.json
   def create
+    @categories = Category.all
     @post = Post.new(post_params)
-
     respond_to do |format|
       if @post.save
         format.html { redirect_to @post, notice: 'Post was successfully created.' }
@@ -74,9 +78,11 @@ class PostsController < ApplicationController
 
   def recent
     @posts = Post.all
+    @categories = Category.all
   end
 
   def parse
+    @categories = Category.all
     require 'open-uri'
     require 'nokogiri'
     require 'json'
@@ -285,6 +291,6 @@ class PostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:url, :title, :content, :user_id, :code, :rating, :domain, {photos: []})
+      params.require(:post).permit(:url, :title, :content, :user_id, :category_id, :code, :rating, :domain, {photos: []})
     end
 end

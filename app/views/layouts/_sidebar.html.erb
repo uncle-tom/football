@@ -1,0 +1,20 @@
+<div class="col-md-4 sidebar">
+  <img src="https://tpc.googlesyndication.com/simgad/4550313246100504787" alt="">
+  <div class="matches-day bg-white">
+    <p>Вы можете <u>заработать</u> на сегодняшних матчах. Ознакомьтесь с нашими прогнозами.</p>
+    <hr>
+    <div class="matches-day_title">Главные матчи дня:</div>
+    <ul>
+      <li><a href="#">Эвертон - Манчестер Юнайтед</a></li>
+      <li><a href="#">Барселона - Реал</a></li>
+      <li><a href="#">Шахтер - Динамо</a></li>
+      <li><a href="#">Сток Сити - Ньюкасл</a></li>
+      <li><a href="#">ПСЖ - Бавария</a></li>
+    </ul>
+  </div>
+  <% if current_user %>
+    <%= link_to 'Добавить новость', new_post_path, class: 'btn btn-primary' %>
+  <% else %>
+    <div class="btn btn-primary pointer" data-toggle="modal" data-target=".bd-example-modal-lg">Добавить новость</div>
+  <% end %>
+</div>

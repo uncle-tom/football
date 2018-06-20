@@ -40,6 +40,13 @@ $(document).on('turbolinks:load',function(){
     })
 	})
 
+  $('.parser-click').on('click', function(){
+    parser_name = $(this).data("title");
+    parser_link = $(this).data("link");
+    $('.parser-name').html(parser_name);
+    $('.parser-link').html(parser_link);
+  })
+
 	//Get Domain
 	$('.add_post_link').blur(function (url) {
 		var url = $( ".add_post_link" ).val();
@@ -59,11 +66,18 @@ $(document).on('turbolinks:load',function(){
     $('.add_post_domain').val(hostname);
 	});
 
+  $('.zzz-active').on('click', function(){
+    category_parse = $( ".category-parser" ).val();
+    console.log(category_parse);
+    console.log($('.parser-name').text());
+  });
+
   //Add news from parser
   $('.add_news_parser').on('click', function(){
     //get title and link
-    title_parse = $(this).data("title");
-    link_parse = $(this).data("link");
+    title_parse = $('.parser-name').text()
+    link_parse = $('.parser-link').text()
+    category_parse = $( ".category-parser" ).val();
     //get domain
     var hostname;
     //find & remove protocol (http, ftp, etc.) and get hostname
@@ -83,7 +97,7 @@ $(document).on('turbolinks:load',function(){
       type: "POST", 
       url: '/posts/',
       data: {
-        post: {title: title_parse, url: link_parse, domain: hostname, user_id: 1}
+        post: {title: title_parse, url: link_parse, domain: hostname, user_id: 1, category_id: category_parse}
       },
       success: function(response){
         console.log(response)

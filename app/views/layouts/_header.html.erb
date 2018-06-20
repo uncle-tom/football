@@ -1,115 +1,126 @@
-<nav class="navbar navbar-toggleable-md navbar-light bg-faded" style="background-color: #e3f2fd; margin-bottom: 20px;">
-  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="header_left">
+<nav>
+  <div class="container">
     <div class="logo">
-      <img src="/assets/messiwho.png" alt="">  
+      <img src="https://scontent-frt3-2.xx.fbcdn.net/v/t1.0-9/23755699_382889758823830_1812679452230541527_n.jpg?oh=3b46fa8343684919e4307044848f65be&oe=5AB1EA3B" alt="">
     </div>
-    <a class="navbar-brand" href="/"> Bokopor</a>
-  </div>
-
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <%= link_to "Найкраще", posts_path, class: "nav-link" %>
-      </li>
-      <li class="nav-item">
-        <%= link_to "Нове", recent_path, class: "nav-link" %>
-      </li>
-    </ul>
-    <div class="my-2 my-lg-0">
-      <ul class="nav">
+    <div class="menu">
+      <ul>
+        <li>
+          <%= link_to "Новое", recent_path, class: "nav-link" %>
+        </li>
+        <li>
+          <%= link_to "Лучшее", posts_path, class: "nav-link" %>
+        </li>
+        <li>
+          <%= link_to "Видео", recent_path, class: "nav-link" %>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle dropdown-toggle-split" id="dropdownCategory" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Категории</a>
+          <div class="dropdown-menu header-categories" aria-labelledby="dropdownCategory">
+            <% @categories.each do |cat| %>
+              <div class="header-categories_link">
+                <%= link_to category_path(cat.id) do %>
+                  <span class="header-categories_icon <%= cat.color %>">
+                    <%= cat.letter %>
+                  </span>
+                  <%= cat.name %>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+        </li>
+      </ul>
+      <div class="pull-right">
         <% if user_signed_in? %>
-          <div class="dropdown pointer">
+          <div class="header_user dropdown">
             <div class="dropdown-toggle dropdown-toggle-split" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <img src="https://image.freepik.com/free-icon/soccer-ball_318-71584.jpg" alt="" style="width: 40px; height: 40px;border-radius: 50%;">
+              <img src="https://image.freepik.com/free-icon/soccer-ball_318-71584.jpg" alt="">
             </div>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-              <%= link_to 'Профіль', user_path(
+              <%= link_to 'Профиль', user_path(
               current_user), class: "dropdown-item" %>
-              <%= link_to 'Вийти', destroy_user_session_path, method:'delete', class: "dropdown-item" %>
+              <%= link_to 'Выйти', destroy_user_session_path, method:'delete', class: "dropdown-item" %>
             </div>
           </div>
         <% else %>
-          <li class="nav-item">
-            <div class="nav-link pointer" data-toggle="modal" data-target="#modal_sign_in">Увійти</div>
-          </li>
-          <li class="nav-item">
-            <div class="nav-link pointer" data-toggle="modal" data-target="#modal_sign_up">Реєстрація</div>
-          </li>
+          <ul class="sign-in-up">
+            <li>
+              <a data-toggle="modal" data-target="#modal_sign_in">Войти</a>
+            </li>
+            <li>
+              <a data-toggle="modal" data-target="#modal_sign_up">Регистрация</a>
+            </li>
+          </ul>
         <% end %>
-      </ul>
+      </div>
+    </div>
+    
+  <!-- Modal Sign_In -->
+  <div class="modal fade" id="modal_sign_in" tabindex="-1" role="dialog" aria-labelledby="modal_sign_in" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+      <%= form_for(:user, :url => session_path(:user)) do |f| %>
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Вход</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div>
+            <%= f.label 'Email:' %><br>
+            <%= f.email_field :email, :required => true, class: "form-control" %>
+          </div>
+          <div>
+            <%= f.label 'Пароль:' %><br>
+            <%= f.password_field :password, autocomplete: "off", :required => true, class: "form-control"  %>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+          <%= f.submit "Войти", class: 'btn btn-primary' %>
+        </div>
+      <% end %>
+      </div>
     </div>
   </div>
-</nav>
 
-<!-- Modal Sign_In -->
-<div class="modal fade" id="modal_sign_in" tabindex="-1" role="dialog" aria-labelledby="modal_sign_in" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-    <%= form_for(:user, :url => session_path(:user)) do |f| %>
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Вхід</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="field">
-          <%= f.label 'Email:' %><br />
-          <%= f.email_field :email, :required => true %>
+  <!-- Modal Sign_Up -->
+  <div class="modal fade" id="modal_sign_up" tabindex="-1" role="dialog" aria-labelledby="modal_sign_up" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+      <%= form_for(:user, :url => registration_path(:user)) do |f| %>
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Реєстрація</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-        <div class="field">
-          <%= f.label 'Пароль:' %><br />
-          <%= f.password_field :password, autocomplete: "off", :required => true %>
-        </div>
-      </div>
-      
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрити</button>
-        <%= f.submit "Увійти", class: 'btn btn-primary' %>
-      </div>
-    <% end %>
-    </div>
-  </div>
-</div>
+        <div class="modal-body">
+          <div class="field">
+            <%= f.label :email %><br />
+            <%= f.email_field :email, :required => true %>
+          </div>
 
-<!-- Modal Sign_Up -->
-<div class="modal fade" id="modal_sign_up" tabindex="-1" role="dialog" aria-labelledby="modal_sign_up" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-    <%= form_for(:user, :url => registration_path(:user)) do |f| %>
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Реєстрація</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="field">
-          <%= f.label :email %><br />
-          <%= f.email_field :email, :required => true %>
-        </div>
+          <div class="field">
+            <%= f.label 'Пароль' %>
+            <% if @minimum_password_length %>
+            <em>(<%= @minimum_password_length %> characters minimum)</em>
+            <% end %><br />
+            <%= f.password_field :password, autocomplete: "off", :required => true %>
+          </div>
 
-        <div class="field">
-          <%= f.label 'Пароль' %>
-          <% if @minimum_password_length %>
-          <em>(<%= @minimum_password_length %> characters minimum)</em>
-          <% end %><br />
-          <%= f.password_field :password, autocomplete: "off", :required => true %>
+          <div class="field">
+            <%= f.label 'Підтвердіть пароль' %><br />
+            <%= f.password_field :password_confirmation, autocomplete: "off", :required => true %>
+          </div>
         </div>
-
-        <div class="field">
-          <%= f.label 'Підтвердіть пароль' %><br />
-          <%= f.password_field :password_confirmation, autocomplete: "off", :required => true %>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрити</button>
+          <%= f.submit "Зареєструватися", class: 'btn btn-primary' %>
         </div>
+      <% end %>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрити</button>
-        <%= f.submit "Зареєструватися", class: 'btn btn-primary' %>
-      </div>
-    <% end %>
     </div>
   </div>
 </div>

@@ -1,17 +1,15 @@
-<% set_meta_tags title: 'Кращі футбольні новини' %>
-
-<div class="col-md-7 col-xs-12 bg-white padding-none">
-  <div class="welcome">
+<div class="col-md-8 col-xs-12 bg-white padding-none">
+  <div class="welcome flex-center">
     <div class="welcome-text">
-      <span class="bold">Turnir.ua</span> - спортивное сообщество. <br>Читаем, смотрим, обсуждаем.  
-    </div>
-    <div class="welcome-button">
-      <div class="btn btn-success">
-        Присоединиться  
-      </div>
+      <% if @category.name == 'Футбол' %>
+        <div class="bold"><span class="category green">Ф</span><%= @category.name %></div>
+        <% elsif @category.name == 'Бокс' %>   
+        <div class="bold"><span class="category red">Б</span><%= @category.name %></div>
+      <% end %>
+      
     </div>
   </div>
-  <% @posts.where('rating > 0').order('rating DESC').first(20).each do |post| %>
+  <% @category.posts.order('created_at DESC').first(30).each_with_index do |post, i| %>
     <div class="post_card">
       <div class="table_cell">
         <div class="rating_up" data-post-id="<%= post.id %>" data-post-rating="<%= post.rating %>"><span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span></div>
@@ -19,13 +17,13 @@
         <div class="rating_down" data-post-id="<%= post.id %>" data-post-rating="<%= post.rating %>"><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span></div>
       </div>
       <% if post.url.length > 0 %>
-        <h5><%= link_to post.title, post.url, target: '_blank' %> <small class="text-muted"> (<%= post.try(:domain) %>)</small></h5> 
+        <h5><%= link_to post.title, post.url, target: '_blank' %> <small class="text-muted"> (<%= post.try(:domain) %>)</small></h5>
       <% else %>
         <h5><%= link_to post.title, post %></h5>
       <% end %>
       <% if user_signed_in? %>
         <% if post.author.try(:id) == current_user.id || current_user.role == "moderator" %>
-          <p><%= link_to "Редагувати", edit_post_path(post) %> <%= link_to "Видалити", post, method: :delete, data: { confirm: 'Are you sure?' } %> </p>
+          <h6><%= link_to "Редагувати", edit_post_path(post) %> <%= link_to "Видалити", post, method: :delete, data: { confirm: 'Ви впевнені?' } %> </h6>
         <% end %>
       <% end %>
 
@@ -42,7 +40,14 @@
           <div><%= link_to 'Почати обговорення', post %></div>
         <% end %>
       </div>
-      
+      <% if i == 0 %>
+        
+      <% end %>
     </div>
-  <% end %>
+  <% end %>  
 </div>
+
+<%= render 'layouts/sidebar' %>
+
+<%= link_to 'Edit', edit_category_path(@category) %> |
+<%= link_to 'Back', categories_path %>

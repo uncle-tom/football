@@ -1,24 +1,72 @@
 <% set_meta_tags title: 'Парсим' %>
 
-<h5>UA-Football</h5>
-<% @ua_football.first(15).each do |s| %>
-  <p class="news_parser"><%= link_to s[:title], s[:link], target: '_blank' %> <span class="add_news_parser add_news_parser_click_<%= s[:link] %>" data-title="<%= s[:title] %>" data-link="<%= s[:link] %>">Добавить</span></p>
-<% end %>
+<table>
+  <tr>
+    <th>UA-Football</th>
+    <th class="text-center">Добавить</th>
+  </tr>
+  <% @ua_football.first(15).each do |s| %>
+    <tr class="news_parser">
+      <td>
+        <span><%= link_to s[:title], s[:link], target: '_blank' %></span>
+      </td>
+      <td class="text-center add-news">
+        <span class="parser-click" data-toggle="modal" data-target="#modal_parser_post" data-title="<%= s[:title] %>" data-link="<%= s[:link] %>">+</span>
+      </td>
+    </tr>
+  <% end %>
+</table>
 
-<h5>Football.ua</h5>
-<% @football_ua.first(15).each do |s| %>
-  <p class="news_parser"><%= link_to s[:title], s[:link], target: '_blank' %> <span class="add_news_parser add_news_parser_click_<%= s[:link] %>" data-title="<%= s[:title] %>" data-link="<%= s[:link] %>">Добавить</span></p>
-<% end %>
+<table>
+  <tr>
+    <th>Football.ua</th>
+    <th class="text-center">Добавить</th>
+  </tr>
+  <% @football_ua.first(15).each do |s| %>
+    <tr class="news_parser">
+      <td>
+        <span><%= link_to s[:title], s[:link], target: '_blank' %></span>
+      </td>
+      <td class="text-center add-news">
+        <span class="parser-click" data-toggle="modal" data-target="#modal_parser_post" data-title="<%= s[:title] %>" data-link="<%= s[:link] %>">+</span>
+      </td>
+    </tr>
+  <% end %>
+</table>
 
-<h5>Football 24</h5>
-<% @football24.first(15).each do |s| %>
-  <p class="news_parser"><%= link_to s[:title], s[:link], target: '_blank' %> <span class="add_news_parser add_news_parser_click_<%= s[:link] %>" data-title="<%= s[:title] %>" data-link="<%= s[:link] %>">Добавить</span></p>
-<% end %>
+<table>
+  <tr>
+    <th>Football 24</th>
+    <th class="text-center">Добавить</th>
+  </tr>
+  <% @football24.first(15).each do |s| %>
+    <tr class="news_parser">
+      <td>
+        <span><%= link_to s[:title], s[:link], target: '_blank' %></span>
+      </td>
+      <td class="text-center add-news">
+        <span class="parser-click" data-toggle="modal" data-target="#modal_parser_post" data-title="<%= s[:title] %>" data-link="<%= s[:link] %>">+</span>
+      </td>
+    </tr>
+  <% end %>
+</table>
 
-<h5>Eurosport</h5>
-<% @eurosport.first(8).each do |s| %>
-  <p class="news_parser"><%= link_to s[:title], s[:link], target: '_blank' %> <span class="add_news_parser add_news_parser_click_<%= s[:link] %>" data-title="<%= s[:title] %>" data-link="<%= s[:link] %>">Добавить</span></p>
-<% end %>
+<table>
+  <tr>
+    <th>Eurosport</th>
+    <th class="text-center">Добавить</th>
+  </tr>
+  <% @eurosport.first(8).each do |s| %>
+    <tr class="news_parser">
+      <td>
+        <span><%= link_to s[:title], s[:link], target: '_blank' %></span>
+      </td>
+      <td class="text-center add-news">
+        <span class="parser-click" data-toggle="modal" data-target="#modal_parser_post" data-title="<%= s[:title] %>" data-link="<%= s[:link] %>">+</span>
+      </td>
+    </tr>
+  <% end %>
+</table>
 
 <h5>Dynamo.kiev.ua</h5>
 <% @dynamo.first(12).each do |s| %>
@@ -47,5 +95,34 @@
 
 <h5>Tribuna</h5>
 <% @tribuna.first(15).each do |s| %>
-  <p class="news_parser"><%= link_to s[:title], s[:link], target: '_blank' %> <span class="add_news_parser add_news_parser_click_<%= s[:link] %>" data-title="<%= s[:title] %>" data-link="<%= s[:link] %>">Добавить</span></p>
+  <p class="news_parser">
+    <%= link_to s[:title], s[:link], target: '_blank' %> 
+    <span class="parser-click" data-toggle="modal" data-target="#modal_parser_post" data-title="<%= s[:title] %>" data-link="<%= s[:link] %>">Добавить2</span>
+  </p>
+
 <% end %>
+
+<!-- Modal modal_parser_post -->
+  <div class="modal fade" id="modal_parser_post" tabindex="-1" role="dialog" aria-labelledby="modal_parser_post" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">    
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Добавить пост</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Заголовок: <span class="parser-name"></span>
+          <br>
+          Ссылка: <span class="parser-link"></span>
+          <div class="form-group">
+            <%= select_tag 'user_id', options_for_select(@categories.collect{ |u| [u.name, u.id] }), class: 'category-parser' %>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary add_news_parser">Добавить</button>
+        </div>
+      </div>
+    </div>
+  </div>
