@@ -6,28 +6,28 @@
 
 В начале, когда активных пользователей не так много, необходимо было придумать решение, которое позволит наполнить сайт - быстро и эффективно. 
 
-Чтобы не ходить по всем топовым сайтам и в ручную не добавлять интересные ссылки, я написал парсер. 
+Чтобы не ходить по всем топовым сайтам и не добавлять в ручную интересные ссылки, я написал парсер. 
 
 ```ruby
-	def parse
-  	@categories = Category.all
-    require 'open-uri'
-    require 'nokogiri'
-    require 'json'
+def parse
+	@categories = Category.all
+	require 'open-uri'
+	require 'nokogiri'
+	require 'json'
 
-    url_ua_football = 'https://www.ua-football.com/'
-    html_ua_football = open(url_ua_football)
+	url_ua_football = 'https://www.ua-football.com/'
+	html_ua_football = open(url_ua_football)
 
-    doc_ua_football = Nokogiri::HTML(html_ua_football)
-    @ua_football = []
-    doc_ua_football.css('#allnews li').each do |showing|
-      title_el = showing.at_css('a')
-      title = title_el.text.strip
-      link = showing.at_css('a').attr('href')
-      @ua_football.push(
-        title: title,
-        link: link,
-      )
-    end
-  end
+	doc_ua_football = Nokogiri::HTML(html_ua_football)
+	@ua_football = []
+	doc_ua_football.css('#allnews li').each do |showing|
+		title_el = showing.at_css('a')
+		title = title_el.text.strip
+		link = showing.at_css('a').attr('href')
+		@ua_football.push(
+			title: title,
+			link: link,
+		)
+	end
+end
 ```
