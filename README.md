@@ -36,4 +36,4 @@ end
 
 Вот так это выглядит: 
 
-[logo]: http://joxi.ru/gmvW6pbSLL7j42.png "Logo Title Text 2"
+![alt](http://joxi.ru/gmvW6pbSLL7j42.png "Logo Title Text 1")
