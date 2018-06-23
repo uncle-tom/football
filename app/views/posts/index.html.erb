@@ -1,9 +1,9 @@
-<% set_meta_tags title: 'Кращі футбольні новини' %>
+<% set_meta_tags title: 'Лучшие футбольные новости' %>
 
-<div class="col-md-7 col-xs-12 bg-white padding-none">
+<div class="col-md-8 col-xs-12 bg-white padding-none">
   <div class="welcome">
     <div class="welcome-text">
-      <span class="bold">Turnir.ua</span> - спортивное сообщество. <br>Читаем, смотрим, обсуждаем.  
+      <span class="bold">MY SITE</span> - футбольное сообщество. <br>Читаем, смотрим, обсуждаем.  
     </div>
     <div class="welcome-button">
       <div class="btn btn-success">
@@ -25,11 +25,11 @@
       <% end %>
       <% if user_signed_in? %>
         <% if post.author.try(:id) == current_user.id || current_user.role == "moderator" %>
-          <p><%= link_to "Редагувати", edit_post_path(post) %> <%= link_to "Видалити", post, method: :delete, data: { confirm: 'Are you sure?' } %> </p>
+          <p><%= link_to "Редактировать", edit_post_path(post) %> <%= link_to "Удалить", post, method: :delete, data: { confirm: 'Are you sure?' } %> </p>
         <% end %>
       <% end %>
 
-      <div class="post_info">Додав: <%= link_to post.author.try(:name), user_path(post.author.try(:id)) %>, <%= time_ago_in_words post.created_at %></div>
+      <div class="post_info">Добавил: <%= link_to post.author.try(:name), user_path(post.author.try(:id)) %>, <%= time_ago_in_words post.created_at %></div>
 
       <div>
         <% if post.comments.size > 0 %>
@@ -39,7 +39,7 @@
             <% end %>
           </div>
         <% else %>
-          <div><%= link_to 'Почати обговорення', post %></div>
+          <div><%= link_to 'Начать обсуждения', post %></div>
         <% end %>
       </div>
       
